@@ -15,10 +15,11 @@ COPY my.cnf /etc/mysql/conf.d/my.cnf
 
 RUN chmod 0444 /etc/mysql/conf.d/my.cnf
 
-RUN if [ ${MYSQL_VERSION} > '8.4.0-0.000' ]; then \
-  echo 'mysql_native_password=on' >> /etc/mysql/conf.d/my.cnf \
-else \
-  echo 'default-authentication-plugin=mysql_native_password' >> /etc/mysql/conf.d/my.cnf \
-;fi
+# Check if apk or apt-get exists, and install mysql-client accordingly
+RUN if command -v apk > /dev/null; then \
+  apk update && apk add mysql-client; \
+elif command -v apt-get > /dev/null; then \
+  apt-get update && apt-get install -y mysql-client; \
+fi
 
 EXPOSE 3306
