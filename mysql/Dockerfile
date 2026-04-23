@@ -1,7 +1,5 @@
-ARG MYSQL_VERSION
+ARG MYSQL_VERSION=latest
 FROM mysql:${MYSQL_VERSION}
-
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 #####################################
 # Set Timezone
@@ -21,5 +19,9 @@ RUN if command -v apk > /dev/null; then \
 elif command -v apt-get > /dev/null; then \
   apt-get update && apt-get install -y mysql-client; \
 fi
+
+RUN if [ ${MYSQL_MAJOR} = '8.0' ]; then \
+    echo 'default-authentication-plugin=mysql_native_password' >> /etc/mysql/conf.d/my.cnf; \
+  fi
 
 EXPOSE 3306
