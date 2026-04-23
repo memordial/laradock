@@ -1,0 +1,22 @@
+version: 3.8
+services:
+  workspace:
+    build:
+      args:
+        0: LARADOCK_PHP_VERSION=8.5
+    environment:
+      0: PHP_VERSION=8.5
+      1: LARADOCK_PHP_VERSION=8.5
+  php-fpm:
+    build:
+      args:
+        0: LARADOCK_PHP_VERSION=8.5
+    environment:
+      0: PHP_VERSION=8.5
+      1: LARADOCK_PHP_VERSION=8.5
+  nginx:
+    environment:
+      0: PHP_VERSION=8.5
+      1: LARADOCK_PHP_VERSION=8.5
+    depends_on:
+      0: php-fpm
