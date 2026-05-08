@@ -3,6 +3,8 @@ networks:
     driver: ${NETWORKS_DRIVER}
   backend:
     driver: ${NETWORKS_DRIVER}
+  foss:
+    external: true
 volumes:
   mysql:
     driver: ${VOLUMES_DRIVER}
@@ -213,6 +215,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       links:
         - docker-in-docker
 
@@ -335,6 +338,7 @@ services:
         - workspace
       networks:
         - backend
+        - foss
       links:
         - docker-in-docker
 
@@ -400,6 +404,7 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+        - foss
 ### Laravel Horizon ############################################
     laravel-horizon:
       restart: always
@@ -438,6 +443,7 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+        - foss
 
   ### Soketi Server ##############################################
     soketi:
@@ -454,6 +460,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### NGINX Server #########################################
     nginx:
@@ -481,6 +488,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       extra_hosts:
         - "host.docker.internal:host-gateway"  
 
@@ -510,6 +518,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Blackfire ########################################
     blackfire:
@@ -521,6 +530,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### Apache Server ########################################
     apache2:
@@ -547,6 +557,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### HHVM #################################################
     hhvm:
@@ -561,6 +572,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Minio ################################################
     minio:
@@ -578,6 +590,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### MySQL ################################################
     mysql:
@@ -599,6 +612,7 @@ services:
         - "${MYSQL_PORT}:3306"
       networks:
         - backend
+        - foss
 
 ### Percona ################################################
     percona:
@@ -617,6 +631,7 @@ services:
         - "${PERCONA_PORT}:3306"
       networks:
         - backend
+        - foss
 
 ### MSSQL ################################################
     mssql:
@@ -634,6 +649,7 @@ services:
         - "${MSSQL_PORT}:1433"
       networks:
         - backend
+        - foss
 
 ### MariaDB ##############################################
     mariadb:
@@ -658,6 +674,7 @@ services:
         - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       networks:
         - backend
+        - foss
 
 ### PostgreSQL ###########################################
     postgres:
@@ -697,6 +714,7 @@ services:
         - POSTGRES_CONFLUENCE_PASSWORD=${CONFLUENCE_POSTGRES_PASSWORD}
       networks:
         - backend
+        - foss
 ### pgbackups PostgreSQL ###########################################
     pgbackups:
       image: prodrigestivill/postgres-backup-local
@@ -712,6 +730,7 @@ services:
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       networks:
         - backend
+        - foss
 
 
 ### PostgreSQL PostGis ###################################
@@ -732,6 +751,7 @@ services:
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       networks:
         - backend
+        - foss
 
 ### Neo4j ################################################
     neo4j:
@@ -747,6 +767,7 @@ services:
       image: 'neo4j:latest'
       networks:
         - backend
+        - foss
 ### Nats ################################################
     nats:
       build: ./nats
@@ -756,6 +777,7 @@ services:
         - "${NATS_ROUTE_PORT}:8222"
       networks:
         - backend
+        - foss
 
 ### MongoDB ##############################################
     mongo:
@@ -771,6 +793,7 @@ services:
         - ${DATA_PATH_HOST}/mongo_config:/data/configdb
       networks:
         - backend
+        - foss
 
 ### RethinkDB ##############################################
     rethinkdb:
@@ -782,6 +805,7 @@ services:
         - ${DATA_PATH_HOST}/rethinkdb:/data/rethinkdb_data
       networks:
         - backend
+        - foss
 
   ### ClickHouse #############################################
     clickhouse:
@@ -813,6 +837,7 @@ services:
       networks:
 #        - frontend
         - backend
+        - foss
 
   ### Redis ################################################
     redis:
@@ -825,6 +850,7 @@ services:
         - "${REDIS_PORT}:6379"
       networks:
         - backend
+        - foss
 
 ### Redis Cluster ##########################################
     redis-cluster:
@@ -834,6 +860,7 @@ services:
         - "${REDIS_CLUSTER_PORT_RANGE}:7000-7005"
       networks:
         - backend
+        - foss
 ### SSDB ################################################
     ssdb:
       restart: always
@@ -844,6 +871,7 @@ services:
         - "${SSDB_PORT}:8888"
       networks:
         - backend
+        - foss
 
 ### ZooKeeper #########################################
     zookeeper:
@@ -856,6 +884,7 @@ services:
         - "${ZOOKEEPER_PORT}:2181"
       networks:
         - backend
+        - foss
 
 ### Aerospike ##########################################
     aerospike:
@@ -875,6 +904,7 @@ services:
         - NAMESPACE=${AEROSPIKE_NAMESPACE}
       networks:
         - backend
+        - foss
 
 ### Memcached ############################################
     memcached:
@@ -888,6 +918,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### Beanstalkd ###########################################
     beanstalkd:
@@ -900,6 +931,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### SQS #############################################
     sqs:
@@ -915,6 +947,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### RabbitMQ #############################################
     rabbitmq:
@@ -935,6 +968,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### Mercure #############################################
     mercure:
@@ -954,6 +988,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Cassandra ############################################
     cassandra:
@@ -987,6 +1022,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### Gearman ############################################
     gearman:
@@ -1021,6 +1057,7 @@ services:
         - php-fpm
       networks:
         - backend
+        - foss
 
 ### Beanstalkd Console ###################################
     beanstalkd-console:
@@ -1032,6 +1069,7 @@ services:
         - beanstalkd
       networks:
         - backend
+        - foss
 
 ### Caddy Server #########################################
     caddy:
@@ -1050,6 +1088,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
@@ -1070,6 +1109,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Adminer ###########################################
     adminer:
@@ -1089,6 +1129,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### pgAdmin ##############################################
     pgadmin:
@@ -1106,6 +1147,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### MeiliSearch ##########################################
     meilisearch:
@@ -1119,6 +1161,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### ElasticSearch ########################################
     elasticsearch:
@@ -1153,6 +1196,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Logstash ##############################################
     logstash:
@@ -1173,6 +1217,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       depends_on:
         - elasticsearch
 
@@ -1190,6 +1235,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Dejavu ##############################################
     dejavu:
@@ -1203,6 +1249,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Certbot #########################################
     certbot:
@@ -1227,6 +1274,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Mailhog ################################################
     mailhog:
@@ -1238,6 +1286,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### MailDev ##############################################
     maildev:
@@ -1249,6 +1298,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Mailpit ##############################################
     mailpit:
@@ -1260,6 +1310,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Selenium ###############################################
     selenium:
@@ -1342,6 +1393,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Grafana ################################################
     grafana:
@@ -1354,6 +1406,7 @@ services:
         - "${GRAFANA_PORT}:3000"
       networks:
         - backend
+        - foss
 
 ### Graylog #######################################
     graylog:
@@ -1385,6 +1438,7 @@ services:
         - ${DATA_PATH_HOST}/graylog:/usr/share/graylog/data
       networks:
         - backend
+        - foss
 
 ### Laravel Echo Server #######################################
     laravel-echo-server:
@@ -1402,6 +1456,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### Solr ################################################
     solr:
@@ -1418,6 +1473,7 @@ services:
         - "${SOLR_PORT}:8983"
       networks:
         - backend
+        - foss
 
 ### Thumbor #########################################
     thumbor:
@@ -1535,6 +1591,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### AWS EB-CLI ################################################
     aws:
@@ -1561,6 +1618,7 @@ services:
         - 9010:9000
       networks:
         - backend
+        - foss
 
 ### Gitlab ################################################
     gitlab:
@@ -1593,6 +1651,7 @@ services:
         - "${GITLAB_HOST_SSH_PORT}:22"
       networks:
         - backend
+        - foss
       depends_on:
         - redis
         - postgres
@@ -1625,6 +1684,7 @@ services:
         - ${JUPYTERHUB_USER_LIST}:/userlist
       networks:
         - backend
+        - foss
       ports:
         - "${JUPYTERHUB_PORT}:80"
       environment:
@@ -1653,6 +1713,7 @@ services:
         dockerfile: Dockerfile.controller
       networks:
         - backend
+        - foss
       extra_hosts:
         - "laradock-ipython:${LARADOCK_IPYTHON_CONTROLLER_IP}"
       ports:
@@ -1663,6 +1724,7 @@ services:
         dockerfile: Dockerfile.engine
       networks:
         - backend
+        - foss
       extra_hosts:
         - "laradock-ipython:${LARADOCK_IPYTHON_CONTROLLER_IP}"
 
@@ -1680,6 +1742,7 @@ services:
         - 2375
       networks:
         - backend
+        - foss
 
 ### NetData ################################################
     netdata:
@@ -1695,6 +1758,7 @@ services:
         - "${NETDATA_PORT}:19999"
       networks:
         - backend
+        - foss
 
 ### REDISWEBUI ################################################
     redis-webui:
@@ -1709,6 +1773,7 @@ services:
         - REDIS_1_AUTH=${REDIS_PASSWORD}
       networks:
         - backend
+        - foss
       ports:
         - "${REDIS_WEBUI_PORT}:80"
       depends_on:
@@ -1729,6 +1794,7 @@ services:
         - "${MONGO_WEBUI_PORT}:3000"
       networks:
         - backend
+        - foss
       depends_on:
         - mongo
 
@@ -1744,6 +1810,7 @@ services:
         - ${DATA_PATH_HOST}/metabase-data:/metabase-data
       networks:
         - backend
+        - foss
 
 ### Weaver (Athena PDF) #################################################
     weaver:
@@ -1754,6 +1821,7 @@ services:
         - ./weaver/conf/sample.env
       networks:
         - backend
+        - foss
       depends_on:
         - workspace
 
@@ -1767,6 +1835,7 @@ services:
         - "${IDE_THEIA_PORT}:3000"
       networks:
         - backend
+        - foss
 
 ### IDE-WEBIDE ################################################
     ide-webide:
@@ -1778,6 +1847,7 @@ services:
         - "${IDE_WEBIDE_PORT}:8080"
       networks:
         - backend
+        - foss
 
 ### IDE-CODIAD ################################################
     ide-codiad:
@@ -1796,6 +1866,7 @@ services:
         - "${IDE_CODIAD_PORT}:80"
       networks:
         - backend
+        - foss
 
 ### IDE-ICECODER ################################################
     ide-icecoder:
@@ -1813,6 +1884,7 @@ services:
         - "${IDE_ICECODER_PORT}:8080"
       networks:
         - backend
+        - foss
 
 ### DOCKER-REGISTRY ################################################
     docker-registry:
@@ -1825,6 +1897,7 @@ services:
         - "${DOCKER_REGISTRY_PORT}:5000"
       networks:
         - backend
+        - foss
 
 ### DOCKER-WEB-UI ################################################
     docker-web-ui:
@@ -1843,6 +1916,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### MAILU ################################################
     mailu:
@@ -1865,6 +1939,7 @@ services:
       command: ["sh", "-c", "echo ${MAILU_INIT_ADMIN_USERNAME}@${MAILU_DOMAIN} ${MAILU_INIT_ADMIN_PASSWORD} ;python manage.py advertise ; python manage.py db upgrade ; python manage.py admin ${MAILU_INIT_ADMIN_USERNAME} ${MAILU_DOMAIN} ${MAILU_INIT_ADMIN_PASSWORD} || true;sed -i -- \"s/= Off/= On/g\" /webmail/_data_/_default_/configs/config.ini || true;if grep -Fq \"registration_link_url\" /webmail/_data_/_default_/configs/config.ini;then echo Already set!;else echo \"\" >> /webmail/_data_/_default_/configs/config.ini; echo \"[login]\" >> /webmail/_data_/_default_/configs/config.ini;echo \"registration_link_url = '${MAILU_WEBSITE}${MAILU_WEB_ADMIN}/ui/user/signup'\" >> /webmail/_data_/_default_/configs/config.ini;fi"]
       networks:
         - backend
+        - foss
     mailu-front:
       image: mailu/nginx:${MAILU_VERSION}
       environment:
@@ -2034,6 +2109,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.traefik.rule=Host(`${ACME_DOMAIN}`)"
@@ -2055,6 +2131,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
 
 ### COUCHDB ###################################################
     couchdb:
@@ -2066,6 +2143,7 @@ services:
         - "${COUCHDB_PORT}:5984"
       networks:
         - backend
+        - foss
 
 ### Manticore Search ###########################################
     manticore:
@@ -2081,6 +2159,7 @@ services:
         - "${MANTICORE_HTTP_PORT}:9308"
       networks:
         - backend
+        - foss
 
 ### SONARQUBE ################################################
     sonarqube:
@@ -2098,11 +2177,12 @@ services:
       depends_on:
         - postgres
       environment:
-        - sonar.jdbc.username=${SONARQUBE_POSTGRES_USER}
-        - sonar.jdbc.password=${SONARQUBE_POSTGRES_PASSWORD}
-        - sonar.jdbc.url=jdbc:postgresql://${SONARQUBE_POSTGRES_HOST}:5432/${SONARQUBE_POSTGRES_DB}
+        - SONAR_JDBC_USERNAME=${SONARQUBE_POSTGRES_USER}
+        - SONAR_JDBC_PASSWORD=${SONARQUBE_POSTGRES_PASSWORD}
+        - SONAR_JDBC_URL=jdbc:postgresql://${SONARQUBE_POSTGRES_HOST}:5432/${SONARQUBE_POSTGRES_DB}
       networks:
         - backend
+        - foss
         - frontend
 
 ### CONFLUENCE ################################################
@@ -2115,6 +2195,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       depends_on:
         - postgres
       volumes:
@@ -2124,9 +2205,10 @@ services:
     swagger-editor:
       build: ./swagger-editor
       ports:
-        - ${SWAGGER_EDITOR_PORT}:8080
+        - ${SWAGGER_EDITOR_PORT}:80
       networks:
         - backend
+        - foss
 
 ### SWAGGER UI ################################################
     swagger-ui:
@@ -2137,6 +2219,7 @@ services:
         - ${SWAGGER_UI_PORT}:8080
       networks:
         - backend
+        - foss
 
 ### tomcat ####################################################
     tomcat:
@@ -2147,6 +2230,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       volumes:
         - ${DATA_PATH_HOST}/tomcat/webapps:/usr/local/tomcat/webapps
         - ${DATA_PATH_HOST}/tomcat/logs:/usr/local/tomcat/logs
@@ -2185,6 +2269,7 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
       networks:
         - backend
+        - foss
 
 ### kafka-manager ###########################################
     kafka-manager:
@@ -2195,6 +2280,7 @@ services:
         ZK_HOSTS: zookeeper:2181
       networks:
         - backend
+        - foss
 
 
 ### tarantool ###########################################
@@ -2207,12 +2293,14 @@ services:
         - ${TARANTOOL_PORT}:3301
       networks:
         - backend
+        - foss
     tarantool-admin:
       build: ./tarantool-admin
       ports:
         - ${TARANTOOL_ADMIN_PORT}:80
       networks:
         - backend
+        - foss
 
   ### onedev ####################################################
     onedev:
@@ -2226,6 +2314,7 @@ services:
       networks:
         - frontend
         - backend
+        - foss
       restart: always
   
   ### keycloak ##################################################
@@ -2248,3 +2337,4 @@ services:
       networks:
         - frontend
         - backend
+        - foss
